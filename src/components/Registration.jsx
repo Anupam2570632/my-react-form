@@ -11,11 +11,15 @@ const Registration = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (!name || !email || !password) {
+            alert("Please fill in all required fields.");
+            return;
+        }
         if (!isChecked) {
             alert("Please agree to the terms and conditions.");
             return;
         }
-        // Handle form submission logic here
+
         setIsSubmitted(true);
     };
 
@@ -31,30 +35,49 @@ const Registration = () => {
                 </h1>
 
                 <label className="text-xl font-bold font-sans" htmlFor="name">Enter your name :</label>
-                <input onChange={(event) => setName(event.currentTarget.value)} required className="w-full px-4 py-3 bg-gray-200 rounded-md outline-blue-400" type="text" placeholder="enter your name here" id="name" />
+                <input
+                    onChange={(event) => setName(event.currentTarget.value)}
+                    className="w-full px-4 py-3 bg-gray-200 rounded-md outline-blue-400" type="text" placeholder="enter your name here" id="name"
+                    required
+                />
 
 
-                <label className="text-xl font-bold font-sans" htmlFor="email">Enter your name :</label>
-                <input onChange={(event) => setEmail(event.target.value)} required className="w-full px-4 py-3 bg-gray-200 rounded-md outline-blue-400" type="email" placeholder="enter your email here" id="email" />
+                <label className="text-xl font-bold font-sans" htmlFor="email">Enter your email address :</label>
+                <input
+                    onChange={(event) => setEmail(event.target.value)}
+                    className="w-full px-4 py-3 bg-gray-200 rounded-md outline-blue-400" type="email" placeholder="enter your email here" id="email"
+                    required
+                />
 
                 <label className="text-xl font-bold font-sans" htmlFor="password">Enter your password :</label>
-                <input onChange={(event) => setPassword(event.target.value)} required className="w-full px-4 py-3 bg-gray-200 rounded-md outline-blue-400" type="password" placeholder="enter your password here" id="password" />
+                <input
+                    onChange={(event) => setPassword(event.target.value)}
+                    className="w-full px-4 py-3 bg-gray-200 rounded-md outline-blue-400" type="password" placeholder="enter your password here" id="password"
+                    required
+                />
 
 
                 <div className="flex items-center gap-2">
-                    <input onClick={(event) => setIsChecked(event.target.checked)} required type="checkbox" name="" id="check" /> <span>I Agree, All the terms and conditions.</span>
+                    <input onChange={(event) => setIsChecked(event.target.checked)} type="checkbox" name="" id="check" /> <span>I Agree, All the terms and conditions.</span>
                 </div>
                 <div className="text-end w-full">
-                    <button onClick={handleSubmit} className="px-4 py-2 bg-cyan-600 rounded-lg text-white font-bold ">Sign Up</button>
+                    <button onClick={handleSubmit} className="px-4 border border-transparent hover:border-cyan-500 hover:bg-transparent duration-300 hover:text-black py-2 bg-cyan-600 rounded-lg text-white font-bold ">Sign Up</button>
                 </div>
             </form>
 
             {
                 isSubmitted && <div className="fixed top-0 flex items-center justify-center min-h-screen w-full bg-cyan-800">
-                    <div className="bg-white rounded-lg shadow-2xl w-[40vw] h-[400px]">
+                    <div className="bg-white space-y-4 text-center rounded-lg shadow-2xl w-[40vw] h-[400px]">
                         <h1 className="text-2xl font-bold text-center text-cyan-800 my-4">
                             Your response submitted successfully
                         </h1>
+                        <div className="flex flex-col text-start p-10">
+                            <h2 className="text-xl font-semibold ">Name : {name}</h2>
+                            <h2 className="text-xl font-semibold ">Email : {email}</h2>
+                        </div>
+                        <button className="px-4 py-2 border border-transparent hover:border-cyan-500 hover:text-black duration-300 hover:bg-transparent rounded-md bg-cyan-700 font-bold text-white" onClick={() => setIsSubmitted(false)}>
+                            Close
+                        </button>
                     </div>
                 </div>
             }
